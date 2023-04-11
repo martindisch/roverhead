@@ -8,7 +8,7 @@
 #' @useDynLib roverhead, .registration = TRUE
 NULL
 
-#' Return string `"Hello world!"` to R.
+#' Adds two numbers.
 #' @export
-hello_world <- function() .Call(wrap__hello_world)
+add <- function(a, b) .Call(wrap__add, a, b)
 

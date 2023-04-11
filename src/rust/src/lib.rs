@@ -1,10 +1,10 @@
 use extendr_api::prelude::*;
 
-/// Return string `"Hello world!"` to R.
+/// Adds two numbers.
 /// @export
 #[extendr]
-fn hello_world() -> &'static str {
-    "Hello world!"
+fn add(a: i32, b: i32) -> i32 {
+    a + b
 }
 
 // Macro to generate exports.
@@ -12,5 +12,5 @@ fn hello_world() -> &'static str {
 // See corresponding C code in `entrypoint.c`.
 extendr_module! {
     mod roverhead;
-    fn hello_world;
+    fn add;
 }
