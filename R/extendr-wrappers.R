@@ -12,3 +12,7 @@ NULL
 #' @export
 add <- function(a, b) .Call(wrap__add, a, b)
 
+#' Returns a copy with each element multiplied by two.
+#' @export
+multiply_by_two_copy <- function(integers) .Call(wrap__multiply_by_two_copy, integers)
+
