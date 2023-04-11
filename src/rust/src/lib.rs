@@ -16,6 +16,14 @@ fn multiply_by_two_copy(integers: &[Rint]) -> Integers {
     doubled
 }
 
+/// Multiplies each element by two in place.
+/// @export
+#[extendr]
+fn multiply_by_two(integers: Integers) {
+    let mut integers = integers;
+    integers.iter_mut().for_each(|i| *i *= 2);
+}
+
 // Macro to generate exports.
 // This ensures exported functions are registered with R.
 // See corresponding C code in `entrypoint.c`.
@@ -23,4 +31,5 @@ extendr_module! {
     mod roverhead;
     fn add;
     fn multiply_by_two_copy;
+    fn multiply_by_two;
 }

@@ -16,3 +16,7 @@ add <- function(a, b) .Call(wrap__add, a, b)
 #' @export
 multiply_by_two_copy <- function(integers) .Call(wrap__multiply_by_two_copy, integers)
 
+#' Multiplies each element by two in place.
+#' @export
+multiply_by_two <- function(integers) invisible(.Call(wrap__multiply_by_two, integers))
+
