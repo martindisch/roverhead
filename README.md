@@ -17,3 +17,7 @@ $ R_LIBS_USER=lib R CMD INSTALL roverhead_0.0.0.9000_R_x86_64-pc-linux-gnu.tar.g
 $ R_LIBS_USER=lib R
 > install.packages("roverhead_0.0.0.9000_R_x86_64-pc-linux-gnu.tar.gz")
 ```
+
+## License
+
+[MIT License](LICENSE)
