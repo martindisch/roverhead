@@ -8,15 +8,11 @@
 #' @useDynLib roverhead, .registration = TRUE
 NULL
 
-#' Adds two numbers.
-#' @export
-add <- function(a, b) .Call(wrap__add, a, b)
-
 #' Returns a copy with each element multiplied by two.
 #' @export
-multiply_by_two_copy <- function(integers) .Call(wrap__multiply_by_two_copy, integers)
+multiply_copy <- function(doubles) .Call(wrap__multiply_copy, doubles)
 
 #' Multiplies each element by two in place.
 #' @export
-multiply_by_two <- function(integers) invisible(.Call(wrap__multiply_by_two, integers))
+multiply <- function(doubles) invisible(.Call(wrap__multiply, doubles))
 
