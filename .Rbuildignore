@@ -1,2 +1,4 @@
 \.qs$
 ^lib$
+\.tar.gz$
+\.github$
