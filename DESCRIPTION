@@ -1,6 +1,6 @@
 Package: roverhead
 Title: Try Rust from R
-Version: 0.1.10
+Version: 0.1.11
 Authors@R:
     person("Martin", "Disch", , "martindisch@gmail.com", role = c("aut", "cre"))
 Description: A small example & benchmark to try out extendr.

@@ -14,18 +14,18 @@ jobs:
           - os: ubuntu-latest
             os-name: Linux
             r-invocation: R
-            name-suffix: _linux.tar.gz
-            path-suffix: _R_x86_64-pc-linux-gnu.tar.gz
+            original-suffix: _R_x86_64-pc-linux-gnu.tar.gz
+            desired-suffix: _linux.tar.gz
           - os: windows-latest
             os-name: Windows
             r-invocation: R.exe
-            name-suffix: _windows.zip
-            path-suffix: .zip
+            original-suffix: .zip
+            desired-suffix: _windows.zip
           - os: macos-latest
             os-name: macOS
             r-invocation: R
-            name-suffix: _macos.tgz
-            path-suffix: .tgz
+            original-suffix: .tgz
+            desired-suffix: _macos.tgz
     name: ${{ matrix.os-name }} build
     runs-on: ${{ matrix.os}}
     steps:
@@ -37,11 +37,13 @@ jobs:
         run: ${{ matrix.r-invocation }} CMD build .
       - name: Build binary package
         run: ${{ matrix.r-invocation }} CMD INSTALL --build roverhead_${{ github.ref_name }}.tar.gz
+      - name: Rename output
+        run: mv roverhead_${{ github.ref_name }}${{ matrix.original-suffix }} roverhead_${{ github.ref_name }}${{ matrix.desired-suffix }}
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: roverhead_${{ github.ref_name }}${{ matrix.name-suffix }}
-          path: roverhead_${{ github.ref_name }}${{ matrix.path-suffix }}
+          path: roverhead_${{ github.ref_name }}${{ matrix.desired-suffix }}
+          name: ${{ matrix.os-name }}
 
   release:
     name: Release
@@ -52,11 +54,7 @@ jobs:
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v3
-        with:
-          path: artifacts
-      - name: Set up tmate session
-        uses: mxschmitt/action-tmate@v3
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
-          files: artifacts/*
+          files: "**"
