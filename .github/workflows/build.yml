@@ -45,7 +45,6 @@ jobs:
           path: roverhead_${{ github.ref_name }}_R_x86_64-pc-linux-gnu.tar.gz
 
   build-macos:
-    if: ${{ false }} # disable for now
     name: macOS build
     runs-on: macos-latest
     steps:
