@@ -1,10 +1,13 @@
 name: Package build
 
-on: workflow_dispatch
+on:
+  push:
+    tags:
+      - "*"
 
 jobs:
   build:
-    name: Build
+    name: Windows build
     runs-on: windows-latest
     steps:
       - name: Checkout sources
@@ -14,9 +17,9 @@ jobs:
       - name: Build source package
         run: R.exe CMD build .
       - name: Build binary package
-        run: R.exe CMD INSTALL --build roverhead_0.0.0.9000.tar.gz
+        run: R.exe CMD INSTALL --build roverhead_${{ github.ref_name }}.tar.gz
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: roverhead_0.0.0.9000.zip
-          path: roverhead_0.0.0.9000.zip
+          name: roverhead_${{ github.ref_name }}.zip
+          path: roverhead_${{ github.ref_name }}.zip
