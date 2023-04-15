@@ -52,7 +52,9 @@ jobs:
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v3
+        with:
+          path: artifacts
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
-          files: "**"
+          files: artifacts/*
