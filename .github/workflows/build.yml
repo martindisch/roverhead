@@ -42,3 +42,14 @@ jobs:
         with:
           name: roverhead_${{ github.ref_name }}${{ matrix.name-suffix }}
           path: roverhead_${{ github.ref_name }}${{ matrix.path-suffix }}
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+      - name: Create release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: "*"
