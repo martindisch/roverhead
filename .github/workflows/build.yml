@@ -6,56 +6,39 @@ on:
       - "*"
 
 jobs:
-  build-windows:
-    name: Windows build
-    runs-on: windows-latest
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            os-name: Linux
+            r-invocation: R
+            name-suffix: _linux.tar.gz
+            path-suffix: _R_x86_64-pc-linux-gnu.tar.gz
+          - os: windows-latest
+            os-name: Windows
+            r-invocation: R.exe
+            name-suffix: _windows.zip
+            path-suffix: .zip
+          - os: macos-latest
+            os-name: macOS
+            r-invocation: R
+            name-suffix: _macos.tgz
+            path-suffix: .tgz
+    name: ${{ matrix.os-name }} build
+    runs-on: ${{ matrix.os}}
     steps:
       - name: Checkout sources
         uses: actions/checkout@v3
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
       - name: Build source package
-        run: R.exe CMD build .
+        run: ${{ matrix.r-invocation }} CMD build .
       - name: Build binary package
-        run: R.exe CMD INSTALL --build roverhead_${{ github.ref_name }}.tar.gz
+        run: ${{ matrix.r-invocation }} CMD INSTALL --build roverhead_${{ github.ref_name }}.tar.gz
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: roverhead_${{ github.ref_name }}_windows.zip
-          path: roverhead_${{ github.ref_name }}.zip
-
-  build-linux:
-    name: Linux build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout sources
-        uses: actions/checkout@v3
-      - name: Setup R
-        uses: r-lib/actions/setup-r@v2
-      - name: Build source package
-        run: R CMD build .
-      - name: Build binary package
-        run: R CMD INSTALL --build roverhead_${{ github.ref_name }}.tar.gz
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: roverhead_${{ github.ref_name }}_linux.tar.gz
-          path: roverhead_${{ github.ref_name }}_R_x86_64-pc-linux-gnu.tar.gz
-
-  build-macos:
-    name: macOS build
-    runs-on: macos-latest
-    steps:
-      - name: Checkout sources
-        uses: actions/checkout@v3
-      - name: Setup R
-        uses: r-lib/actions/setup-r@v2
-      - name: Build source package
-        run: R CMD build .
-      - name: Build binary package
-        run: R CMD INSTALL --build roverhead_${{ github.ref_name }}.tar.gz
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: roverhead_${{ github.ref_name }}_macos.tgz
-          path: roverhead_${{ github.ref_name }}.tgz
+          name: roverhead_${{ github.ref_name }}${{ matrix.name-suffix }}
+          path: roverhead_${{ github.ref_name }}${{ matrix.path-suffix }}
