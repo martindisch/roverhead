@@ -21,7 +21,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: roverhead_${{ github.ref_name }}.zip
+          name: roverhead_${{ github.ref_name }}_windows.zip
           path: roverhead_${{ github.ref_name }}.zip
 
   build-linux:
@@ -39,7 +39,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: roverhead_${{ github.ref_name }}_R_x86_64-pc-linux-gnu.tar.gz
+          name: roverhead_${{ github.ref_name }}_linux.tar.gz
           path: roverhead_${{ github.ref_name }}_R_x86_64-pc-linux-gnu.tar.gz
 
   build-macos:
@@ -57,5 +57,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: roverhead_${{ github.ref_name }}.tgz
+          name: roverhead_${{ github.ref_name }}_macos.tgz
           path: roverhead_${{ github.ref_name }}.tgz
