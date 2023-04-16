@@ -16,3 +16,6 @@ multiply_copy <- function(doubles) .Call(wrap__multiply_copy, doubles)
 #' @export
 multiply <- function(doubles) invisible(.Call(wrap__multiply, doubles))
 
+#' Says hello.
+hello <- function() invisible(.Call(wrap__hello))
+
