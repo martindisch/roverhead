@@ -18,6 +18,7 @@ fn multiply(doubles: Doubles) {
 }
 
 /// Says hello.
+/// @export
 #[extendr]
 fn hello() {
     rprintln!("Hello from Rust!");
